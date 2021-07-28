@@ -1,0 +1,41 @@
+{
+  "name": "api",
+  "private": true,
+  "author": "Maximous Black <maximousblk@gmail.com>",
+  "license": "MIT",
+  "repository": "https://github.com/nestdotland/cdn",
+  "description": "Nest API",
+  "scripts": {
+    "ts": "ts-node",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo no tests implemented",
+    "fmt": "prettier --check .",
+    "fmt:fix": "prettier --write ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^1.21.0",
+    "next": "^11.0.1",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.5.12",
+    "@types/react": "^17.0.15",
+    "eslint": "7.31.0",
+    "eslint-config-next": "^11.0.1",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  },
+  "engines": {
+    "node": "14"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "github": {
+    "silent": true
+  },
+  "functions": {
+    "pages/api/**": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  }
+}
