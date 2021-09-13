@@ -16,7 +16,7 @@
     "fmt:fix": "prettier --write ."
   },
   "dependencies": {
-    "@supabase/supabase-js": "^1.22.5",
+    "@supabase/supabase-js": "^1.22.6",
     "next": "^11.1.2",
     "node-fetch": "^3.0.0",
     "react": "^17.0.2",
