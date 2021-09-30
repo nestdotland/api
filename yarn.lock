@@ -250,10 +250,10 @@
   dependencies:
     cross-fetch "^3.1.0"
 
-"@supabase/supabase-js@^1.23.0":
-  version "1.23.0"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.23.0.tgz#b5736e384ce95b10dd51d86ea4b140a9a383d331"
-  integrity sha512-Ow0Eb/rR8aLUR8H+aruY1+yCoHGCJW5S3d/g3jsCNKfw4j5YAsUoNRgYL3s0I4JHpT4CgiYtZdTG4JjvABRrEg==
+"@supabase/supabase-js@^1.23.1":
+  version "1.23.1"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.23.1.tgz#d6a1daf5d0b317356e776dc216c9f3e38d129f06"
+  integrity sha512-N0jDhJlEPcKE8wojyiPoyLfyZMUGRdVbN8jBGD3ApkqEUduRpxVFrBFG35knVrx66b368rXTXSq9W49rKq0Bwg==
   dependencies:
     "@supabase/gotrue-js" "^1.18.0"
     "@supabase/postgrest-js" "^0.33.3"
