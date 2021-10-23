@@ -5,6 +5,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.status(200);
   res.json({
     docs: 'https://docs.nest.land/api',
+    repo: 'https://github.com/nestdotland/api',
   });
   res.end();
 };
