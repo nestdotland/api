@@ -19,11 +19,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     .eq('moduleName', moduleName)
     .neq('unlisted', true);
 
-  if (error) {
-    res.status(500);
-    res.end(`Internal Server Error`);
-    throw new Error(`${error.message} (hint: ${error.hint})`);
-  }
+  if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
 
   const names = Versions.map(({ name }: { name: string }) => name);
 

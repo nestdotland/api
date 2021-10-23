@@ -17,19 +17,13 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     .select('authorName, moduleName')
     .eq('name', name);
 
-  if (VanityModulesError) {
-    res.status(500);
-    res.end(`Internal Server Error`);
-    throw new Error(`${VanityModulesError.message} (hint: ${VanityModulesError.hint})`);
-  }
+  if (VanityModulesError) throw new Error(`${VanityModulesError.message} (hint: ${VanityModulesError.hint})`);
 
-  if (VanityModules.length < 1) {
+  if (VanityModules.length > 1) {
+    throw new Error(`Too many "VanityModules" with name "${name}"`);
+  } else if (VanityModules.length < 1) {
     res.status(404);
     res.end(`Not Found`);
-  } else if (VanityModules.length > 1) {
-    res.status(500);
-    res.end(`Internal Server Error`);
-    throw new Error(`Too many "VanityModules" with name "${name}"`);
   } else {
     const { authorName, moduleName } = VanityModules[0];
 
@@ -40,11 +34,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
       .eq('moduleName', moduleName)
       .eq('versionName', versionName);
 
-    if (error) {
-      res.status(500);
-      res.end(`Internal Server Error`);
-      throw new Error(`${error.message} (hint: ${error.hint})`);
-    }
+    if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
 
     const paths = Files.map(({ path }: { path: string }) => path);
 

@@ -4,11 +4,7 @@ import { supabase } from '@/lib/supabase';
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { data: VanityModules, error } = await supabase.from('VanityModule').select('name');
 
-  if (error) {
-    res.status(500);
-    res.end(`Internal Server Error`);
-    throw new Error(`${error.message} (hint: ${error.hint})`);
-  }
+  if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
 
   const modules = VanityModules.map(({ name }: { name: string }) => name).sort();
 
