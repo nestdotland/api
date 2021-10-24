@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const imports: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { data: VanityModules, error } = await supabase.from('VanityModule').select('name');
 
   if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
@@ -15,4 +15,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.end();
 };
 
-export default handler;
+export default imports;

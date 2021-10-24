@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const imports: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { user } = req.query;
 
   if (!user) {
@@ -13,6 +13,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     .from('Module')
     .select('name')
     .eq('authorName', user)
+    .neq('private', true)
     .neq('unlisted', true);
 
   if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
@@ -26,4 +27,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.end();
 };
 
-export default handler;
+export default imports;

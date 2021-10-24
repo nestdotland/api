@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const imports: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   let { data: Users, error } = await supabase.from('User').select('username');
 
   if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
@@ -19,4 +19,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   }
 };
 
-export default handler;
+export default imports;

@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const users: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = req;
 
   const limit = Number(query.limit) > 0 && Number(query.limit) <= 100 ? Number(query.limit) : 100;
@@ -24,6 +24,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
       .from('Module')
       .select('*')
       .eq('authorName', query.username)
+      .order('name')
       .ilike('name', `%${search || ''}%`)
       .range(cursor, cursor + limit - 1);
 
@@ -32,9 +33,9 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
     res.status(200);
-    res.json({ limit, cursor, search, modules: Modules });
+    res.json({ options: { limit, cursor, search }, results: Modules });
     res.end();
   }
 };
 
-export default handler;
+export default users;

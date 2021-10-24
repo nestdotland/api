@@ -24,7 +24,7 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
   res.status(200);
-  res.json({ limit, cursor, search, files: Files });
+  res.json({ options: { limit, cursor, search }, results: Files });
   res.end();
 };
 

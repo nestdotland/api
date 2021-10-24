@@ -11,6 +11,9 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   let { data: Modules, error } = await supabase
     .from('Module')
     .select('*')
+    .neq('unlisted', true)
+    .neq('private', true)
+    .order('name')
     .ilike('name', `%${search || ''}%`)
     .range(cursor, cursor + limit - 1);
 
@@ -19,7 +22,7 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
   res.status(200);
-  res.json({ limit, cursor, search, modules: Modules });
+  res.json({ options: { limit, cursor, search }, results: Modules });
   res.end();
 };
 

@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
 
-const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const imports: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { user: authorName, module: moduleName } = req.query;
 
   if (!authorName) {
@@ -30,4 +30,4 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.end();
 };
 
-export default handler;
+export default imports;

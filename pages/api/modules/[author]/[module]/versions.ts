@@ -14,6 +14,8 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     .select('*')
     .eq('authorName', author)
     .eq('moduleName', modulename)
+    .neq('unlisted', true)
+    .order('name')
     .ilike('name', `%${search || ''}%`)
     .range(cursor, cursor + limit - 1);
 
@@ -22,7 +24,7 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
   res.status(200);
-  res.json({ limit, cursor, search, versions: Versions });
+  res.json({ options: { limit, cursor, search }, results: Versions });
   res.end();
 };
 
