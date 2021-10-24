@@ -6,6 +6,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
 
   const limit = Number(query.limit) > 0 && Number(query.limit) <= 100 ? Number(query.limit) : 100;
   const cursor = Number(query.cursor) > 0 ? Number(query.cursor) : 0;
+  const search = query.search ?? null;
 
   if (!query.username) {
     res.status(400);
@@ -23,6 +24,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
       .from('Module')
       .select('*')
       .eq('authorName', query.username)
+      .ilike('name', `%${search || ''}%`)
       .range(cursor, cursor + limit - 1);
 
     if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
@@ -30,7 +32,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
     res.status(200);
-    res.json({ limit, cursor, modules: Modules });
+    res.json({ limit, cursor, search, modules: Modules });
     res.end();
   }
 };
