@@ -29,7 +29,6 @@ const imports: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
       .select('name')
       .eq('authorName', authorName)
       .eq('moduleName', moduleName)
-
       .neq('unlisted', true);
 
     if (VersionsError) throw new Error(`${VersionsError.message} (hint: ${VersionsError.hint})`);

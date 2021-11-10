@@ -12,4 +12,13 @@ module.exports = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/modules/:author',
+        destination: '/users/:author/modules',
+        permanent: true,
+      },
+    ];
+  },
 };
