@@ -3,20 +3,19 @@ import { supabase } from '@/lib/supabase';
 
 const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { query } = req;
-  const { author, module: modulename } = req.query;
+  const { author, module: modulename, version } = req.query;
 
   const limit = Number(query.limit) > 0 && Number(query.limit) <= 100 ? Number(query.limit) : 100;
   const cursor = Number(query.cursor) > 0 ? Number(query.cursor) : 0;
-  const search = query.search ?? null;
 
-  let { data: Versions, error } = await supabase
-    .from('Version')
-    .select('*')
-    .eq('authorName', author)
-    .eq('moduleName', modulename)
-    .neq('unlisted', true)
-    .order('createdAt', { ascending: false })
-    .ilike('name', `%${search || ''}%`)
+  let { data: Files, error } = await supabase
+    .from('DependencyGraph')
+    .select('dependencyAuthor, dependencyName, dependencyVersion')
+    .eq('dependentAuthor', author)
+    .eq('dependentName', modulename)
+    .eq('dependentVersion', version)
+    .order('dependentName')
+    .order('dependentAuthor')
     .range(cursor, cursor + limit - 1);
 
   if (error) throw new Error(`${error.message} (hint: ${error.hint})`);
@@ -24,7 +23,14 @@ const modules: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   res.setHeader('Cache-Control', ['public', 'maxage=21600', 's-maxage=21600', 'stale-while-revalidate=21600']);
 
   res.status(200);
-  res.json({ options: { limit, cursor, search }, results: Versions });
+  res.json({
+    options: { limit, cursor },
+    results: Files.map(({ dependencyAuthor, dependencyName, dependencyVersion }) => ({
+      author: dependencyAuthor,
+      module: dependencyName,
+      version: dependencyVersion,
+    })),
+  });
   res.end();
 };
 

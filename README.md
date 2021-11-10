@@ -1,6 +1,6 @@
 # Nest REST API
 
-TODO
+TODO(@maximousblk): Write a description of the API.
 
 ## License
 
